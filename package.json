@@ -1,0 +1,16 @@
+{
+  "name": "@justice-os/core",
+  "version": "0.1.0",
+  "description": "The Linux of Justice Tech — modular open-source platform for building justice applications",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "build": "tsc",
+    "test": "vitest",
+    "lint": "eslint src/"
+  },
+  "keywords": ["justice", "legal-tech", "open-source", "case-management", "court"],
+  "author": "Justice OS Contributors",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/dougdevitre/justice-os" }
+}
