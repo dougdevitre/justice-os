@@ -1,6 +1,7 @@
 # ⚖️ Justice OS — The Linux of Justice Tech
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/dougdevitre/justice-os/pulls)
 
@@ -112,16 +113,68 @@ npm install
 npm run dev
 ```
 
+### Create a Plugin
+
+```typescript
+import { JusticePlugin, PluginContext } from '@justice-os/types';
+
+const deadlineNotifier: JusticePlugin = {
+  name: 'deadline-notifier',
+  version: '1.0.0',
+  description: 'Sends SMS reminders 48 hours before court deadlines',
+
+  async onLoad(ctx: PluginContext) {
+    // Subscribe to deadline events from the case manager
+    ctx.caseManager.on('deadlineApproaching', async (event) => {
+      await sendSMS(event.party.phone, `Reminder: ${event.label} is due ${event.date}`);
+    });
+  },
+
+  async onUnload() {
+    // Cleanup resources
+  },
+};
+
+export default deadlineNotifier;
+```
+
+> See [examples/basic-plugin.ts](examples/basic-plugin.ts) for a complete working example.
+
+---
+
+## Roadmap
+
+| Feature | Status |
+|---------|--------|
+| Plugin system with hot-reload | In Progress |
+| Case Manager CRUD operations | In Progress |
+| Doc Generator template engine | Planned |
+| REST and GraphQL API layer | Planned |
+| Multi-tenancy and org isolation | Planned |
+| Audit logging and compliance trail | Planned |
+
 ---
 
 ## Justice OS Ecosystem
 
-| Repo | Description |
-|---|---|
-| [justice-os](https://github.com/dougdevitre/justice-os) | Core platform (you are here) |
+This repository is part of the **Justice OS** open-source ecosystem — 12 interconnected projects building the infrastructure for accessible justice technology.
+
+| Repository | Description |
+|-----------|-------------|
+| [justice-os](https://github.com/dougdevitre/justice-os) | Core modular platform — the foundation |
 | [mobile-court-access](https://github.com/dougdevitre/mobile-court-access) | Mobile-first court access kit |
 | [vetted-legal-ai](https://github.com/dougdevitre/vetted-legal-ai) | RAG engine with citation validation |
-| [court-doc-engine](https://github.com/dougdevitre/court-doc-engine) | Document automation for legal filings |
+| [court-doc-engine](https://github.com/dougdevitre/court-doc-engine) | TurboTax for legal filings |
+| [cognitive-load-ui](https://github.com/dougdevitre/cognitive-load-ui) | Design system for stressed users |
+| [multilingual-justice](https://github.com/dougdevitre/multilingual-justice) | Real-time legal translation |
+| [justice-api-gateway](https://github.com/dougdevitre/justice-api-gateway) | Interoperability layer for courts |
+| [justice-analytics](https://github.com/dougdevitre/justice-analytics) | Bias detection and disparity dashboards |
+| [evidence-timeline](https://github.com/dougdevitre/evidence-timeline) | Evidence timeline builder |
+| [digital-literacy-sim](https://github.com/dougdevitre/digital-literacy-sim) | Digital literacy simulator |
+| [pro-se-toolkit](https://github.com/dougdevitre/pro-se-toolkit) | Self-represented litigant tools |
+| [justice-components](https://github.com/dougdevitre/justice-components) | Reusable component library |
+
+> Built with purpose. Open by design. Justice for all.
 
 ---
 
